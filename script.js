@@ -116,8 +116,8 @@ function initMusic() {
 
 // ---------- Gallery ----------
 const galleryImages = [
-  'assets/galeri/1.png','assets/galeri/2.png','assets/galeri/3.png','assets/galeri/4.png',
-  'assets/galeri/5.png','assets/galeri/6.png','assets/galeri/7.png','assets/galeri/8.png'
+  'assets/galeri/1.png','assets/galeri/2.jpeg','assets/galeri/3.png','assets/galeri/4.png',
+  'assets/galeri/5.jpeg','assets/galeri/6.png','assets/galeri/7.jpeg','assets/galeri/8.png'
 ];
 const galleryLabels = ['Momen Bahagia','Kebersamaan','Cinta','Tawa','Kenangan','Janji','Doa','Harapan'];
 let galleryIndex = 0;
