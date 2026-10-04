@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#4b1624" />
+  <title>Nadya & Fadli | Undangan Pernikahan</title>
+  <meta name="description" content="Undangan pernikahan digital Nadya & Fadli — Sabtu, 17 Oktober 2026." />
+
+  <!-- Open Graph / WhatsApp / Facebook -->
+  <meta property="og:title" content="Nadya & Fadli | Undangan Pernikahan" />
+  <meta property="og:description" content="Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir di hari bahagia kami — Sabtu, 17 Oktober 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wedding-nadyafadli.vercel.app/" />
+  <meta property="og:image" content="https://wedding-nadyafadli.vercel.app/assets/bg/bg.png" />
+  <meta property="og:image:secure_url" content="https://wedding-nadyafadli.vercel.app/assets/bg/bg.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:site_name" content="Nadya & Fadli Wedding" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nadya & Fadli | Undangan Pernikahan" />
+  <meta name="twitter:description" content="Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir di hari bahagia kami." />
+  <meta name="twitter:image" content="https://wedding-nadyafadli.vercel.app/assets/bg/bg.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader-mark">N<span>&</span>F</div>
+    <div class="loader-line"></div>
+    <p>Wedding Invitation</p>
+  </div>
+
+  <div id="prd-screen" class="prd-screen">
+    <div class="prd-frame">
+      <span class="eyebrow">THE WEDDING OF</span>
+      <h1>Nadya <span>&</span> Fadli</h1>
+      <div class="gold-divider"><i class="fa-solid fa-diamond"></i></div>
+      <p class="prd-date">17 · 10 · 2026</p>
+      <p class="prd-note">Dengan penuh kebahagiaan, kami mengundang Anda.</p>
+      <button id="enter-invitation" class="luxury-btn"><i class="fa-regular fa-envelope-open"></i> Buka Undangan</button>
+    </div>
+  </div>
+
+  <button id="music-toggle" class="floating-control" aria-label="Putar atau jeda musik"><i class="fa-solid fa-music"></i></button>
+  <button id="scrollTopBtn" class="floating-control scroll-top" aria-label="Kembali ke atas"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <nav id="header-nav" class="header-nav" aria-label="Navigasi utama">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#home">N<span>&</span>F</a>
+      <button id="hamburger-btn" class="hamburger" aria-label="Buka menu"><span></span><span></span><span></span></button>
+      <div id="nav-menu" class="nav-menu">
+        <a class="nav-link active" href="#home">Home</a>
+        <a class="nav-link" href="#info">Mempelai</a>
+        <a class="nav-link" href="#story">Story</a>
+        <a class="nav-link" href="#acara">Acara</a>
+        <a class="nav-link" href="#galeri">Galeri</a>
+        <a class="nav-link" href="#rsvp">RSVP</a>
+        <a class="nav-link" href="#gifts">Gifts</a>
+      </div>
+      <div class="nav-guest"><i class="fa-regular fa-user"></i><span id="nav-guest-name">Tamu</span></div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <section id="home" class="hero section">
+      <div class="hero-overlay"></div>
+      <div class="hero-content" data-aos="fade-up">
+        <span class="eyebrow light">THE WEDDING OF</span>
+        <h2>Nadya <em>&</em> Fadli</h2>
+        <p class="hero-date">Sabtu · 17 Oktober 2026</p>
+        <div class="guest-box">
+          <span>Kepada Yth.</span>
+          <strong id="home-guest-name">Tamu Undangan</strong>
+        </div>
+        <button id="open-invitation" class="outline-btn">Lihat Undangan <i class="fa-solid fa-arrow-down"></i></button>
+      </div>
+    </section>
+
+    <section id="info" class="section section-light">
+      <div class="container">
+        <div class="section-heading" data-aos="fade-up">
+          <span class="eyebrow">THE COUPLE</span>
+          <h2>Dengan penuh rasa syukur</h2>
+          <p>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dalam hari bahagia kami.</p>
+        </div>
+
+        <div class="couple-grid">
+          <article class="couple-card" data-aos="fade-right">
+            <div class="portrait">
+              <img src="assets/info/wanita.png" alt="Nadya Bulkais Hasanah" onerror="this.src='assets/info/placeholder.svg'" />
+              <span class="portrait-shine"></span>
+            </div>
+            <span class="role">MEMPELAI WANITA</span>
+            <h3>Nadya Bulkais Hasanah, S.Pd</h3>
+            <p>Putri dari</p>
+            <strong>Bapak Rusdi Piliang S.Pd<br>&amp; Ibu Sri Wati</strong>
+          </article>
+          <div class="couple-amp" data-aos="zoom-in">&amp;</div>
+          <article class="couple-card" data-aos="fade-left">
+            <div class="portrait">
+              <img src="assets/info/pria.png" alt="Muhammad Fadli Muda’i" onerror="this.src='assets/info/placeholder.svg'" />
+              <span class="portrait-shine"></span>
+            </div>
+            <span class="role">MEMPELAI PRIA</span>
+            <h3>Muhammad Fadli Muda’i, S.T</h3>
+            <p>Putra dari</p>
+            <strong>Alm. Bapak Ngatijo<br>&amp; Ibu Wardah Ritonga</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" class="section section-cream">
+      <div class="container narrow">
+        <div class="section-heading" data-aos="fade-up">
+          <span class="eyebrow">OUR STORY</span>
+          <h2>Kisah yang akan kami kenang</h2>
+          <p>Setiap kisah memiliki waktunya. Perjalanan cerita kami akan menjadi bagian dari kenangan yang terus kami syukuri.</p>
+        </div>
+        <div class="story-empty" data-aos="fade-up">
+          <i class="fa-regular fa-heart"></i>
+          <p id="story-typewriter" class="typewriter-line" data-text="“Semoga perjalanan baru ini menjadi awal dari kehidupan yang penuh cinta, doa, dan keberkahan.”"></p>
+          <span class="typewriter-cursor">|</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="acara" class="section section-light">
+      <div class="container">
+        <div class="section-heading" data-aos="fade-up">
+          <span class="eyebrow">SAVE THE DATE</span>
+          <h2>Akad &amp; Resepsi</h2>
+        </div>
+
+        <div class="countdown" id="countdown" data-aos="fade-up">
+          <div><strong id="days">00</strong><span>Hari</span></div>
+          <div><strong id="hours">00</strong><span>Jam</span></div>
+          <div><strong id="minutes">00</strong><span>Menit</span></div>
+          <div><strong id="seconds">00</strong><span>Detik</span></div>
+        </div>
+
+        <div class="event-grid">
+          <article class="event-card" data-aos="fade-up">
+            <div class="event-icon"><i class="fa-solid fa-ring"></i></div>
+            <span class="role">AKAD NIKAH</span>
+            <h3>Sabtu, 17 Oktober 2026</h3>
+            <p class="event-time">08:00 – Selesai</p>
+            <div class="event-location"><i class="fa-solid fa-location-dot"></i><span>Gedung Taruna Melati<br>Jl Sumbawa, Kel. Bantan<br>Kota Pematangsiantar</span></div>
+            <a class="luxury-btn small" href="https://maps.app.goo.gl/pdvPXfFSXzfP977JA?g_st=aw" target="_blank" rel="noopener">Buka Maps</a>
+          </article>
+          <article class="event-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="event-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+            <span class="role">RESEPSI</span>
+            <h3>Sabtu, 17 Oktober 2026</h3>
+            <p class="event-time">10:00 – Selesai</p>
+            <div class="event-location"><i class="fa-solid fa-location-dot"></i><span>Gedung Taruna Melati<br>Jl Sumbawa, Kel. Bantan<br>Kota Pematangsiantar</span></div>
+            <a class="luxury-btn small" href="https://maps.app.goo.gl/pdvPXfFSXzfP977JA?g_st=aw" target="_blank" rel="noopener">Buka Maps</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeri" class="section section-cream">
+      <div class="container">
+        <div class="section-heading" data-aos="fade-up">
+          <span class="eyebrow">MOMENTS</span>
+          <h2>Galeri Kenangan</h2>
+        </div>
+        <div id="gallery-grid" class="gallery-grid"></div>
+      </div>
+    </section>
+
+    <div id="lightbox-modal" class="modal" role="dialog" aria-modal="true" aria-label="Preview foto">
+      <button class="modal-close" id="lightbox-close" aria-label="Tutup">&times;</button>
+      <button class="modal-arrow prev" id="lightbox-prev" aria-label="Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="lightbox-img" src="" alt="Preview" />
+      <button class="modal-arrow next" id="lightbox-next" aria-label="Berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+      <div id="lightbox-caption" class="modal-caption"></div>
+
+      <!-- Tombol share -->
+      <div class="lightbox-actions">
+        <button id="share-wa" class="share-btn" aria-label="Share ke WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+        <button id="share-fb" class="share-btn" aria-label="Share ke Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+        <button id="share-tg" class="share-btn" aria-label="Share ke Telegram"><i class="fa-brands fa-telegram"></i></button>
+        <button id="share-copy" class="share-btn" aria-label="Copy link"><i class="fa-solid fa-link"></i></button>
+      </div>
+    </div>
+
+    <section id="rsvp" class="section section-light">
+      <div class="container">
+        <div class="section-heading" data-aos="fade-up">
+          <span class="eyebrow">RSVP</span>
+          <h2>Konfirmasi Kehadiran</h2>
+          <p>Kehadiran dan doa restu Anda merupakan kebahagiaan bagi kami.</p>
+        </div>
+        <div class="rsvp-grid">
+          <div class="luxury-card" data-aos="fade-right">
+            <form id="rsvp-form">
+              <label>Nama Lengkap<input id="rsvp-name" type="text" required placeholder="Nama Anda" /></label>
+              <label>Status Kehadiran<select id="rsvp-status" required><option value="">Pilih status</option><option value="Hadir">Hadir</option><option value="Tidak Hadir">Tidak Hadir</option><option value="Ragu">Masih Ragu</option></select></label>
+              <label>Jumlah Tamu<input id="rsvp-guests" type="number" min="1" max="10" value="1" /></label>
+              <label>Ucapan &amp; Doa<textarea id="rsvp-message" rows="4" placeholder="Tuliskan ucapan untuk kedua mempelai"></textarea></label>
+              <button class="luxury-btn full" type="submit"><i class="fa-regular fa-paper-plane"></i> Kirim Konfirmasi</button>
+            </form>
+            <div id="rsvp-status-message" class="rsvp-message"></div>
+          </div>
+          <div class="luxury-card rsvp-list" data-aos="fade-left">
+            <div class="card-title"><span>Guest Book</span><i class="fa-regular fa-comments"></i></div>
+            <div class="table-wrap"><table><thead><tr><th>Nama</th><th>Status</th><th>Jumlah</th><th>Ucapan</th></tr></thead><tbody id="rsvp-table-body"><tr><td colspan="4">Memuat data...</td></tr></tbody></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gifts" class="section section-cream">
+      <div class="container narrow">
+        <div class="section-heading" data-aos="fade-up">
+          <span class="eyebrow">WEDDING GIFT</span>
+          <h2>Doa &amp; Tanda Kasih</h2>
+          <p>Doa restu Anda adalah hadiah terindah. Bagi yang berkenan memberikan tanda kasih, dapat melalui rekening berikut.</p>
+        </div>
+
+        <div class="gift-grid">
+          <article class="bank-card" data-aos="fade-up">
+            <div class="bank-head">
+              <span>MUAMALAT</span>
+              <img class="bank-logo" src="assets/bank/muamalat.png" alt="Bank Muamalat" />
+            </div>
+            <p class="account-number" data-number="2510030775">2510030775 <button class="copy-btn" type="button" data-copy="2510030775">Copy</button></p>
+            <p class="account-name">Nadya Bulkais Hasanah</p>
+          </article>
+          <article class="bank-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="bank-head">
+              <span>BNI</span>
+              <img class="bank-logo" src="assets/bank/bni.png" alt="Bank BNI" />
+            </div>
+            <p class="account-number" data-number="2110672780">2110672780 <button class="copy-btn" type="button" data-copy="2110672780">Copy</button></p>
+            <p class="account-name">Muhammad Fadli Muda’i</p>
+          </article>
+        </div>
+
+        <div class="gift-quote" data-aos="fade-up">
+          <p>“Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”</p>
+          <span>QS. Ar-Rum: 21</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-mark">N<span>&</span>F</div>
+    <p>Nadya &amp; Fadli · 17 Oktober 2026</p>
+    <small>
+      Web Designer Fadlan Fiqri Fauzan
+      <a href="https://instagram.com/fdlann.26" target="_blank" rel="noopener" aria-label="Instagram Fadlan Fiqri Fauzan">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+    </small>
+  </footer>
+
+  <audio id="bgm" loop preload="auto"><source src="assets/music/lagu.mp3" type="audio/mpeg" /></audio>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
