@@ -18,21 +18,38 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initCountdown();
   initMusic();
-  initGallery();
   initCopyButtons();
   initRSVP();
   loadRSVP();
   initStoryTypewriter();
+  initMascot();
+  initCursorHeart();
+  initTapHearts();
 
   if (window.AOS) AOS.init({ duration: 700, once: true, offset: 40 });
 });
 
+// ---------- Buka Undangan + Amplop terbuka ----------
 $('#enter-invitation')?.addEventListener('click', () => {
-  $('#prd-screen')?.classList.add('hidden');
-  $('#header-nav')?.classList.add('visible');
-  document.body.classList.remove('locked');
-  const bgm = $('#bgm');
-  bgm?.play().then(() => $('#music-toggle')?.classList.add('playing')).catch(() => {});
+  const envelopeWrap = document.querySelector('.envelope-wrap');
+  if (envelopeWrap) {
+    envelopeWrap.classList.add('open');
+
+    // Delay kecil biar animasi amplop kelar dulu
+    setTimeout(() => {
+      $('#prd-screen')?.classList.add('hidden');
+      $('#header-nav')?.classList.add('visible');
+      document.body.classList.remove('locked');
+      const bgm = $('#bgm');
+      bgm?.play().then(() => $('#music-toggle')?.classList.add('playing')).catch(() => {});
+    }, 700);
+  } else {
+    $('#prd-screen')?.classList.add('hidden');
+    $('#header-nav')?.classList.add('visible');
+    document.body.classList.remove('locked');
+    const bgm = $('#bgm');
+    bgm?.play().then(() => $('#music-toggle')?.classList.add('playing')).catch(() => {});
+  }
 });
 
 $('#open-invitation')?.addEventListener('click', () => $('#info')?.scrollIntoView({ behavior: 'smooth' }));
@@ -114,157 +131,7 @@ function initMusic() {
   });
 }
 
-// ---------- Gallery ----------
-const galleryImages = [
-  'assets/galeri/1.png','assets/galeri/2.jpeg','assets/galeri/3.png','assets/galeri/4.png',
-  'assets/galeri/5.jpeg','assets/galeri/6.png','assets/galeri/7.jpeg','assets/galeri/8.png'
-];
-const galleryLabels = ['Momen Bahagia','Kebersamaan','Cinta','Tawa','Kenangan','Janji','Doa','Harapan'];
-let galleryIndex = 0;
-
-function initGallery() {
-  const grid = $('#gallery-grid');
-  if (!grid) return;
-
-  grid.innerHTML = galleryImages.map((src, i) => `
-    <div class="gallery-item" data-index="${i}">
-      <img src="${src}" alt="${galleryLabels[i]}" loading="lazy" onerror="this.style.opacity='.25'" />
-      <div class="gallery-overlay"><span>${galleryLabels[i]}</span></div>
-      <span class="gallery-number">${String(i+1).padStart(2,'0')}</span>
-    </div>`).join('');
-
-  $$('.gallery-item').forEach(item => item.addEventListener('click', () => openLightbox(Number(item.dataset.index))));
-
-  $('#lightbox-close')?.addEventListener('click', closeLightbox);
-  $('#lightbox-prev')?.addEventListener('click', () => openLightbox((galleryIndex - 1 + galleryImages.length) % galleryImages.length));
-  $('#lightbox-next')?.addEventListener('click', () => openLightbox((galleryIndex + 1) % galleryImages.length));
-  $('#lightbox-modal')?.addEventListener('click', e => { if (e.target.id === 'lightbox-modal') closeLightbox(); });
-  document.addEventListener('keydown', e => {
-    if (!$('#lightbox-modal')?.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') openLightbox((galleryIndex - 1 + galleryImages.length) % galleryImages.length);
-    if (e.key === 'ArrowRight') openLightbox((galleryIndex + 1) % galleryImages.length);
-  });
-
-  // ---------- Share handler ----------
-  const shareUrl = () => encodeURIComponent(location.href);
-  const shareText = () => encodeURIComponent('Undangan Pernikahan Nadya & Fadli — 17 Oktober 2026');
-
-  $('#share-wa')?.addEventListener('click', () => {
-    window.open(`https://wa.me/?text=${shareText()}%20${shareUrl()}`, '_blank');
-  });
-  $('#share-fb')?.addEventListener('click', () => {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl()}`, '_blank');
-  });
-  $('#share-tg')?.addEventListener('click', () => {
-    window.open(`https://t.me/share/url?url=${shareUrl()}&text=${shareText()}`, '_blank');
-  });
-  $('#share-copy')?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(location.href);
-      const btn = $('#share-copy');
-      btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-      setTimeout(() => btn.innerHTML = '<i class="fa-solid fa-link"></i>', 1500);
-    } catch {}
-  });
-
-  initGalleryAnimation();
-}
-
-// ============================================================
-// GALERI — ANIMASI MASUK (desktop) + AUTO-SCROLL (mobile)
-// ============================================================
-function initGalleryAnimation() {
-  const grid = document.getElementById('gallery-grid');
-  if (!grid) return;
-
-  const items = grid.querySelectorAll('.gallery-item');
-  if (!items.length) return;
-
-  if (items[0].dataset.animated === 'true') return;
-
-  const isMobile = window.matchMedia('(max-width: 850px)').matches;
-
-  if (isMobile) {
-    const originalItems = Array.from(items);
-    originalItems.forEach((el) => {
-      const clone = el.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      grid.appendChild(clone);
-    });
-
-    grid.classList.add('is-marquee');
-    originalItems.forEach((el) => (el.dataset.animated = 'true'));
-    return;
-  }
-
-  if (!('IntersectionObserver' in window)) {
-    items.forEach((el) => el.classList.add('in-view'));
-    return;
-  }
-
-  document.body.classList.add('js-ready');
-
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px',
-    }
-  );
-
-  items.forEach((el) => {
-    el.dataset.animated = 'true';
-    observer.observe(el);
-  });
-}
-
-window.addEventListener('resize', () => {
-  const grid = document.getElementById('gallery-grid');
-  if (!grid) return;
-  const isMarquee = grid.classList.contains('is-marquee');
-  const isMobile = window.matchMedia('(max-width: 850px)').matches;
-
-  if (!isMobile && isMarquee) {
-    grid.classList.remove('is-marquee');
-    grid.querySelectorAll('.gallery-item[aria-hidden="true"]').forEach(el => el.remove());
-    grid.querySelectorAll('.gallery-item').forEach(el => { delete el.dataset.animated; });
-    initGalleryAnimation();
-  }
-
-  if (isMobile && !isMarquee) {
-    grid.querySelectorAll('.gallery-item').forEach(el => { delete el.dataset.animated; });
-    initGalleryAnimation();
-  }
-});
-
-function openLightbox(index) {
-  galleryIndex = index;
-  const modal = $('#lightbox-modal');
-  const img = $('#lightbox-img');
-  if (!modal || !img) return;
-  img.src = galleryImages[index];
-  img.alt = galleryLabels[index];
-  $('#lightbox-caption').textContent = galleryLabels[index];
-  modal.classList.add('active');
-  document.body.classList.add('locked');
-}
-
-function closeLightbox() {
-  $('#lightbox-modal')?.classList.remove('active');
-  document.body.classList.remove('locked');
-}
-
-// ============================================================
-// STORY — EFEK KETIKAN (TYPEWRITER)
-// ============================================================
+// ---------- Story Typewriter ----------
 function initStoryTypewriter() {
   const target = document.getElementById('story-typewriter');
   if (!target) return;
@@ -304,15 +171,168 @@ function initStoryTypewriter() {
   }
 }
 
-// ---------- Copy bank account ----------
+// ---------- Mascot Cupid ----------
+function initMascot() {
+  const mascot = document.getElementById('mascot');
+  if (!mascot) return;
+
+  let lastScroll = 0;
+  let hideTimer;
+
+  const showMascot = () => {
+    mascot.classList.add('show');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => mascot.classList.remove('show'), 3000);
+  };
+
+  window.addEventListener('scroll', () => {
+    const now = Date.now();
+    if (now - lastScroll > 2500) {
+      lastScroll = now;
+      showMascot();
+    }
+  }, { passive: true });
+
+  setTimeout(showMascot, 4000);
+}
+
+// ---------- Kursor Hati (mengikuti mouse) ----------
+function initCursorHeart() {
+  // Nonaktifkan di perangkat touch
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  const cursor = document.getElementById('cursor-heart');
+  if (!cursor) return;
+
+  let mouseX = 0, mouseY = 0;
+  let lastTrailX = 0, lastTrailY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    cursor.classList.add('active');
+    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+    // Trail setiap 12px gerakan
+    const dx = mouseX - lastTrailX;
+    const dy = mouseY - lastTrailY;
+    if (Math.sqrt(dx * dx + dy * dy) > 12) {
+      lastTrailX = mouseX;
+      lastTrailY = mouseY;
+      createTrailHeart(mouseX, mouseY);
+    }
+  });
+
+  document.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+}
+
+function createTrailHeart(x, y) {
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  trail.style.left = x + 'px';
+  trail.style.top = y + 'px';
+  trail.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 21 C12 15 4 13 2 18 C0 23 8 26 12 30 C16 26 24 23 22 18 C20 13 12 15 12 21 Z" fill="#e58aa8"/></svg>`;
+  document.body.appendChild(trail);
+  setTimeout(() => trail.remove(), 800);
+}
+
+// ---------- Tap Hearts (hati muncul saat klik/tap) ----------
+function initTapHearts() {
+  document.addEventListener('click', (e) => {
+    // Skip kalau klik di input / textarea / tombol penting
+    const tag = e.target.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+    const count = 2 + Math.floor(Math.random() * 2); // 2-3 hati
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => createTapHeart(e.clientX, e.clientY), i * 90);
+    }
+  });
+}
+
+function createTapHeart(x, y) {
+  const layer = document.getElementById('tap-hearts-layer');
+  if (!layer) return;
+
+  const heart = document.createElement('div');
+  heart.className = 'tap-heart';
+
+  const offsetX = (Math.random() - 0.5) * 40;
+  const offsetY = (Math.random() - 0.5) * 30;
+
+  heart.style.left = (x + offsetX) + 'px';
+  heart.style.top = (y + offsetY) + 'px';
+  heart.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 21 C12 15 4 13 2 18 C0 23 8 26 12 30 C16 26 24 23 22 18 C20 13 12 15 12 21 Z" fill="#e58aa8"/></svg>`;
+
+  layer.appendChild(heart);
+  setTimeout(() => heart.remove(), 1300);
+}
+
+// ---------- Confetti ----------
+function fireConfetti() {
+  const layer = document.getElementById('confetti-layer');
+  if (!layer) return;
+
+  const colors = ['#e58aa8', '#f6c56e', '#c8a4d4', '#a8d4c8', '#8c3d50', '#f6a5c0'];
+  const total = 60;
+
+  for (let i = 0; i < total; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+    piece.style.animationDelay = (Math.random() * 0.6) + 's';
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    layer.appendChild(piece);
+
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
+
+// ---------- Fireworks (mini, saat copy berhasil) ----------
+function fireFireworks(x, y) {
+  const layer = document.getElementById('fireworks-layer');
+  if (!layer) return;
+
+  const colors = ['#f6c56e', '#e58aa8', '#c8a4d4', '#a8d4c8', '#fff5d4'];
+  const total = 14;
+
+  for (let i = 0; i < total; i++) {
+    const angle = (Math.PI * 2 * i) / total + Math.random() * 0.3;
+    const distance = 40 + Math.random() * 40;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+
+    const spark = document.createElement('div');
+    spark.className = 'firework-spark';
+    spark.style.left = x + 'px';
+    spark.style.top = y + 'px';
+    spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+    spark.style.setProperty('--dx', dx + 'px');
+    spark.style.setProperty('--dy', dy + 'px');
+    spark.style.boxShadow = `0 0 8px ${spark.style.background}`;
+
+    layer.appendChild(spark);
+    setTimeout(() => spark.remove(), 1000);
+  }
+}
+
+// ---------- Copy bank account + Fireworks ----------
 function initCopyButtons() {
-  $$('.copy-btn').forEach(btn => btn.addEventListener('click', async () => {
+  $$('.copy-btn').forEach(btn => btn.addEventListener('click', async (e) => {
     const number = btn.dataset.copy;
     try {
       await navigator.clipboard.writeText(number);
       const old = btn.textContent;
       btn.textContent = 'Tersalin';
       setTimeout(() => btn.textContent = old, 1600);
+
+      // Kembang api mini di sekitar tombol
+      const rect = btn.getBoundingClientRect();
+      fireFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2);
     } catch {
       alert(`Nomor rekening: ${number}`);
     }
@@ -343,9 +363,6 @@ async function loadRSVP() {
     }
     rsvpBody.innerHTML = result.data.map(row => {
       let status = row.Status_Kehadiran || row.status || '-';
-      if (status === 'Hadir') status = 'Hadir';
-      else if (status === 'Tidak Hadir') status = 'Tidak Hadir';
-      else if (status === 'Ragu') status = 'Ragu';
       return `<tr><td>${escapeHtml(row.Nama_Tamu || row.name || '-')}</td><td>${escapeHtml(status)}</td><td>${escapeHtml(String(row.Jumlah_Tamu || row.guests || '1'))}</td><td>${escapeHtml(row.Keterangan || row.message || '-')}</td></tr>`;
     }).join('');
   } catch (error) {
@@ -383,6 +400,7 @@ function initRSVP() {
       rsvpForm.reset();
       rsvpMessage.textContent = 'Terima kasih. Konfirmasi Anda telah tercatat.';
       updateGuestName(data.name);
+      fireConfetti();
       setTimeout(loadRSVP, 1000);
       setTimeout(() => rsvpMessage.className = 'rsvp-message', 4500);
     } catch (error) {
