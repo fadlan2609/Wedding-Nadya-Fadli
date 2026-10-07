@@ -383,7 +383,7 @@ img { display: block; max-width: 100%; }
    ============================================================ */
 .hero {
   padding: 0;
-  background: url("assets/bg/bg.jpeg") center / cover no-repeat;
+  background: url("assets/bg/bg.png") center / cover no-repeat;
   justify-content: center;
   text-align: center;
   color: white;
