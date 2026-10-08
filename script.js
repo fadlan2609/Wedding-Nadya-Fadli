@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMascot();
   initCursorHeart();
   initTapHearts();
+  initPolaroid();
 
   if (window.AOS) AOS.init({ duration: 700, once: true, offset: 40 });
 });
@@ -35,7 +36,6 @@ $('#enter-invitation')?.addEventListener('click', () => {
   if (envelopeWrap) {
     envelopeWrap.classList.add('open');
 
-    // Delay kecil biar animasi amplop kelar dulu
     setTimeout(() => {
       $('#prd-screen')?.classList.add('hidden');
       $('#header-nav')?.classList.add('visible');
@@ -196,9 +196,8 @@ function initMascot() {
   setTimeout(showMascot, 4000);
 }
 
-// ---------- Kursor Hati (mengikuti mouse) ----------
+// ---------- Kursor Hati ----------
 function initCursorHeart() {
-  // Nonaktifkan di perangkat touch
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   const cursor = document.getElementById('cursor-heart');
@@ -214,7 +213,6 @@ function initCursorHeart() {
     cursor.classList.add('active');
     cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
 
-    // Trail setiap 12px gerakan
     const dx = mouseX - lastTrailX;
     const dy = mouseY - lastTrailY;
     if (Math.sqrt(dx * dx + dy * dy) > 12) {
@@ -237,14 +235,13 @@ function createTrailHeart(x, y) {
   setTimeout(() => trail.remove(), 800);
 }
 
-// ---------- Tap Hearts (hati muncul saat klik/tap) ----------
+// ---------- Tap Hearts ----------
 function initTapHearts() {
   document.addEventListener('click', (e) => {
-    // Skip kalau klik di input / textarea / tombol penting
     const tag = e.target.tagName.toLowerCase();
     if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
 
-    const count = 2 + Math.floor(Math.random() * 2); // 2-3 hati
+    const count = 2 + Math.floor(Math.random() * 2);
     for (let i = 0; i < count; i++) {
       setTimeout(() => createTapHeart(e.clientX, e.clientY), i * 90);
     }
@@ -267,6 +264,41 @@ function createTapHeart(x, y) {
 
   layer.appendChild(heart);
   setTimeout(() => heart.remove(), 1300);
+}
+
+// ---------- Polaroid — efek klik kamera ----------
+function initPolaroid() {
+  const polaroid = document.getElementById('polaroid');
+  const flash = document.getElementById('camera-flash');
+  if (!polaroid) return;
+
+  const triggerFlash = () => {
+    polaroid.classList.add('flash');
+    flash?.classList.add('fire');
+
+    const rect = polaroid.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => createTapHeart(
+        cx + (Math.random() - 0.5) * 200,
+        cy + (Math.random() - 0.5) * 200
+      ), i * 60);
+    }
+
+    setTimeout(() => {
+      polaroid.classList.remove('flash');
+      flash?.classList.remove('fire');
+    }, 600);
+  };
+
+  polaroid.addEventListener('click', triggerFlash);
+  polaroid.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      triggerFlash();
+    }
+  });
 }
 
 // ---------- Confetti ----------
@@ -292,7 +324,7 @@ function fireConfetti() {
   }
 }
 
-// ---------- Fireworks (mini, saat copy berhasil) ----------
+// ---------- Fireworks ----------
 function fireFireworks(x, y) {
   const layer = document.getElementById('fireworks-layer');
   if (!layer) return;
@@ -330,7 +362,6 @@ function initCopyButtons() {
       btn.textContent = 'Tersalin';
       setTimeout(() => btn.textContent = old, 1600);
 
-      // Kembang api mini di sekitar tombol
       const rect = btn.getBoundingClientRect();
       fireFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2);
     } catch {

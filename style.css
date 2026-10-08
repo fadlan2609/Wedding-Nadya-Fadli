@@ -33,11 +33,11 @@ button { cursor: pointer; }
 img { display: block; max-width: 100%; }
 
 /* ============================================================
-   2. KURSOR HATI (mengikuti mouse)
+   2. KURSOR HATI
    ============================================================ */
 @media (hover: hover) and (pointer: fine) {
   body { cursor: none; }
-  a, button, input, select, textarea, .gallery-item, .nav-link, .hamburger { cursor: none; }
+  a, button, input, select, textarea, .polaroid, .nav-link, .hamburger { cursor: none; }
 }
 
 .cursor-heart {
@@ -54,7 +54,6 @@ img { display: block; max-width: 100%; }
 .cursor-heart.active { opacity: 1; }
 .cursor-heart svg { width: 100%; height: 100%; }
 
-/* Trail hati */
 .cursor-trail {
   position: fixed;
   top: 0; left: 0;
@@ -73,7 +72,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
-   3. TAP HEARTS (hati muncul saat klik/tap)
+   3. TAP HEARTS
    ============================================================ */
 .tap-hearts-layer {
   position: fixed;
@@ -409,7 +408,7 @@ img { display: block; max-width: 100%; }
 .guest-box strong { display: block; font: 500 21px "Cormorant Garamond", serif; margin-top: 3px; }
 
 /* ============================================================
-   12. COUPLE + CINCIN BERKILAU
+   12. COUPLE + CINCIN
    ============================================================ */
 .couple-grid { display: grid; grid-template-columns: 1fr 120px 1fr; align-items: center; gap: 25px; max-width: 950px; margin: auto; }
 .couple-card { text-align: center; }
@@ -452,7 +451,6 @@ img { display: block; max-width: 100%; }
 .couple-card p { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
 .couple-card strong { font: 500 16px / 1.5 "Cormorant Garamond", serif; color: var(--ink); }
 
-/* Cincin berkilau */
 .couple-amp { width: 120px; height: 120px; display: grid; place-items: center; margin: auto; position: relative; }
 .ring-pair { width: 100%; height: 100%; }
 
@@ -463,9 +461,7 @@ img { display: block; max-width: 100%; }
   50% { transform: translateY(-3px); }
 }
 
-.ring-inner {
-  animation: ringShine 2.4s linear infinite;
-}
+.ring-inner { animation: ringShine 2.4s linear infinite; }
 .ring-inner-right { animation-delay: 0.6s; }
 @keyframes ringShine {
   0%   { stroke-dashoffset: 0; opacity: 0.4; }
@@ -498,7 +494,6 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    13. STORY + KARIKATUR + PETALS + SPARKLES + KOPI
    ============================================================ */
-/* Cangkir kopi uap mengepul */
 .coffee-cup {
   width: 60px;
   height: 70px;
@@ -624,7 +619,224 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
-   14. TIMELINE
+   14. POLAROID MOMENT
+   ============================================================ */
+#moment {
+  position: relative;
+  overflow: hidden;
+}
+
+.moment-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.m-sparkle {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.55;
+  animation: mSparkleFloat 5s ease-in-out infinite;
+}
+.m-sparkle-1 { top: 12%; left: 10%; animation-delay: 0s; }
+.m-sparkle-2 { top: 22%; right: 12%; animation-delay: 1s; }
+.m-sparkle-3 { bottom: 20%; left: 8%; animation-delay: 2s; }
+.m-sparkle-4 { bottom: 28%; right: 10%; animation-delay: 3s; }
+.m-sparkle-5 { top: 45%; left: 50%; animation-delay: 4s; }
+
+@keyframes mSparkleFloat {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.4; }
+  50%      { transform: translateY(-18px) scale(1.2) rotate(15deg); opacity: 1; }
+}
+
+.polaroid-wrap {
+  position: relative;
+  width: min(340px, 85vw);
+  margin: 30px auto 20px;
+  z-index: 1;
+}
+
+.polaroid {
+  position: relative;
+  background: #fffdf9;
+  padding: 16px 16px 60px;
+  border-radius: 6px;
+  box-shadow:
+    0 20px 45px rgba(84, 24, 39, 0.22),
+    0 6px 15px rgba(84, 24, 39, 0.12),
+    inset 0 0 0 1px rgba(84, 24, 39, 0.04);
+  transform: rotate(-3deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  animation: polaroidSway 5s ease-in-out infinite;
+  cursor: pointer;
+  user-select: none;
+}
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow:
+    0 30px 60px rgba(84, 24, 39, 0.28),
+    0 10px 20px rgba(84, 24, 39, 0.15);
+  animation-play-state: paused;
+}
+.polaroid:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+.polaroid.flash {
+  animation: cameraFlash 0.5s ease;
+}
+@keyframes polaroidSway {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(-1.5deg) translateY(-8px); }
+}
+@keyframes cameraFlash {
+  0%   { transform: rotate(-3deg) scale(1); }
+  30%  { transform: rotate(0deg) scale(0.95); }
+  100% { transform: rotate(-3deg) scale(1); }
+}
+
+.polaroid-photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #e6ddd6;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(84, 24, 39, 0.08);
+}
+.polaroid-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.polaroid:hover .polaroid-photo img { transform: scale(1.05); }
+
+.polaroid-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.polaroid-shine::before {
+  content: "";
+  position: absolute;
+  top: -50%; left: -75%;
+  width: 50%; height: 200%;
+  background: linear-gradient(115deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.2) 40%,
+    rgba(255,255,255,0.75) 50%,
+    rgba(255,255,255,0.2) 60%,
+    rgba(255,255,255,0) 100%);
+  animation: polaroidShine 3.8s ease-in-out infinite;
+}
+@keyframes polaroidShine {
+  0%   { left: -75%; }
+  60%  { left: 125%; }
+  100% { left: 125%; }
+}
+
+.polaroid-caption {
+  position: absolute;
+  left: 16px; right: 16px; bottom: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: none;
+}
+.caption-hand {
+  font-family: "Caveat", cursive;
+  font-size: 22px;
+  color: var(--maroon);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+.caption-date {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.polaroid-heart {
+  position: absolute;
+  font-size: 18px;
+  pointer-events: none;
+  opacity: 0;
+  animation: polaroidHeartFloat 4s ease-in-out infinite;
+}
+.polaroid-heart-1 { left: -14px;  top: 20%;  animation-delay: 0s; }
+.polaroid-heart-2 { right: -14px; top: 40%;  animation-delay: 1.2s; }
+.polaroid-heart-3 { left: 45%;    bottom: -20px; animation-delay: 2.4s; }
+
+@keyframes polaroidHeartFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+  20%  { opacity: 1; }
+  60%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.1); }
+}
+
+.polaroid-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 100px;
+  height: 30px;
+  z-index: 3;
+  filter: drop-shadow(0 2px 3px rgba(84, 24, 39, 0.1));
+}
+
+.polaroid-clip {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 26px;
+  height: 34px;
+  z-index: 3;
+  filter: drop-shadow(0 3px 4px rgba(84, 24, 39, 0.15));
+}
+
+.polaroid-hint {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-top: 40px;
+}
+.polaroid-hint i {
+  color: var(--gold);
+  margin-right: 4px;
+  animation: hintPulse 1.6s ease-in-out infinite;
+}
+@keyframes hintPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.2); }
+}
+
+.camera-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+.camera-flash.fire {
+  animation: flashFire 0.55s ease-out;
+}
+@keyframes flashFire {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+/* ============================================================
+   15. TIMELINE
    ============================================================ */
 .timeline { position: relative; max-width: 800px; margin: auto; padding-left: 40px; }
 .timeline::before {
@@ -667,7 +879,7 @@ img { display: block; max-width: 100%; }
 .heart-mini-2 { animation-delay: 0.4s; }
 
 /* ============================================================
-   15. ACARA + BURUNG + DOODLE
+   16. ACARA + BURUNG + DOODLE
    ============================================================ */
 .birds { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
 .bird {
@@ -736,7 +948,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
-   16. RSVP
+   17. RSVP
    ============================================================ */
 .rsvp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .luxury-card {
@@ -768,7 +980,7 @@ th, td { text-align: left; padding: 11px 8px; border-bottom: 1px solid var(--lin
 th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
 
 /* ============================================================
-   17. GIFTS
+   18. GIFTS
    ============================================================ */
 .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .bank-card {
@@ -806,7 +1018,7 @@ th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(
 .gift-quote span { display: block; margin-top: 12px; color: var(--gold); font-size: 10px; letter-spacing: 2px; }
 
 /* ============================================================
-   18. FOOTER
+   19. FOOTER
    ============================================================ */
 .footer { padding: 50px 20px; text-align: center; background: #3c101b; color: #cdbdc1; }
 .footer-mark { color: white; }
@@ -816,7 +1028,7 @@ th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(
 .footer small a:hover { color: var(--gold-light); transform: scale(1.15); }
 
 /* ============================================================
-   19. MASKOT CUPID
+   20. MASKOT CUPID
    ============================================================ */
 .mascot {
   position: fixed;
@@ -839,7 +1051,7 @@ th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(
 .mascot-heart { transform-origin: center; animation: heartBeat 1.4s ease-in-out infinite; }
 
 /* ============================================================
-   20. CONFETTI & FIREWORKS
+   21. CONFETTI & FIREWORKS
    ============================================================ */
 .confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 10001; overflow: hidden; }
 .confetti-piece {
@@ -869,7 +1081,7 @@ th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(
 }
 
 /* ============================================================
-   21. RESPONSIVE — TABLET (≤ 850px)
+   22. RESPONSIVE — TABLET (≤ 850px)
    ============================================================ */
 @media (max-width: 850px) {
   .nav-menu {
@@ -896,13 +1108,11 @@ th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(
   .timeline-icon { width: 36px; height: 36px; left: -18px; }
   .timeline-icon svg { width: 26px; height: 26px; }
   .mascot { width: 60px; height: 60px; right: 14px; bottom: 120px; }
-
-  /* Nonaktifkan kursor hati di tablet/mobile */
   .cursor-heart, .cursor-trail { display: none !important; }
 }
 
 /* ============================================================
-   22. RESPONSIVE — MOBILE (≤ 500px)
+   23. RESPONSIVE — MOBILE (≤ 500px)
    ============================================================ */
 @media (max-width: 500px) {
   .section { padding: 90px 15px 65px; }
@@ -930,4 +1140,9 @@ th { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(
   .petal { font-size: 14px; }
   .coffee-cup { width: 50px; height: 58px; }
   .envelope-wrap { width: 100px; height: 76px; }
+  .polaroid-wrap { width: min(280px, 88vw); }
+  .polaroid { padding: 12px 12px 50px; }
+  .caption-hand { font-size: 19px; }
+  .caption-date { font-size: 9px; }
+  .polaroid-tape { width: 80px; height: 24px; }
 }
